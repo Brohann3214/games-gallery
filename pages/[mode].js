@@ -16,7 +16,7 @@ export async function getStaticProps({ params }) {
 			posts,
 			generated: new Date().toISOString(),
 		},
-		revalidate: 60 * 60, // 1hr
+		revalidate: 5 * 60, // 5 minutes
 	};
 }
 
