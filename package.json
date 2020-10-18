@@ -1,4 +1,5 @@
 {
+	"repository": "github:jacobcarpenter/games-gallery",
 	"license": "MIT",
 	"scripts": {
 		"dev": "next dev",
