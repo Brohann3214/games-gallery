@@ -39,7 +39,7 @@ export default function GamesGallery({ title, posts, generated }) {
 			<Box
 				display="grid"
 				gridGap="16px"
-				gridTemplateColumns="repeat(auto-fit, 380px)"
+				gridTemplateColumns="repeat(auto-fit, minmax(330px, 1fr))"
 			>
 				{posts.map(({ postId, ...props }) => (
 					<GameTile key={postId} {...props} />
