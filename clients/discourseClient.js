@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { fetchWithRateLimit } from '../util';
+import { fetchWithRateLimit } from './util';
 
 // It'd be great if Discourse provided a better api for fetching first posts
 // for a list of topics, but I didn't find one... n+1 queries here we come!
