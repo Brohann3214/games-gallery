@@ -1,0 +1,27 @@
+{
+	"license": "MIT",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"format": "prettier --write ."
+	},
+	"dependencies": {
+		"async-sema": "^3.1.0",
+		"cheerio": "^1.0.0-rc.3",
+		"next": "^9.5.5",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"styled-components": "^5.2.0",
+		"styled-system": "^5.1.5"
+	},
+	"devDependencies": {
+		"babel-plugin-styled-components": "^1.11.1",
+		"prettier": "^2.1.2"
+	},
+	"prettier": {
+		"singleQuote": true,
+		"useTabs": true,
+		"tabWidth": 4
+	}
+}
