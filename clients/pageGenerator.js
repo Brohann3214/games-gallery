@@ -1,7 +1,11 @@
 import cheerio from 'cheerio';
 
 import { createCacheClient } from './discourseCacheClient';
-import { fetchTopTopicsWithGameTag, makeTopicLink } from './discourseClient';
+import {
+	fetchTopTopicsWithGameTag,
+	fetchPostsForTopic,
+	makeTopicLink,
+} from './discourseClient';
 
 const cacheClient = createCacheClient();
 
@@ -23,16 +27,22 @@ export async function getTopGamesForTimePeriod(scope) {
 	// merge top topics data + order with cached posts
 	const posts = [];
 	for (const topic of topics) {
-		const post = postsById[topic.id];
+		let post = postsById[topic.id];
 
 		if (!post) {
-			// TODO: fetch from Discourse directly?
-			console.warn(`No data for topic ${makeTopicLink(topic.id)}`);
-			continue;
+			// cache miss; fetch from Discourse directly
+			console.info(
+				`No data for topic ${topic.id}; fetching from Discourse...`
+			);
+
+			const postsRepsonse = await fetchPostsForTopic(topic.id);
+			const postsResponseBody = await postsRepsonse.json();
+			const discoursePost = postsResponseBody.post_stream.posts[0];
+
+			post = buildGameDetails(discoursePost, topic.title);
 		}
 
 		if (!post.gameLink) {
-			// TODO: fetch from Discourse directly?
 			console.warn(`No game link for topic ${makeTopicLink(topic.id)}`);
 			continue;
 		}
@@ -64,10 +74,10 @@ export function buildGameDetails(discoursePostObject, fallbackTitle) {
 	return {
 		topicId: discoursePostObject.topic_id,
 		postId: discoursePostObject.id,
-		gameLink: likelyGame?.url,
+		...(likelyGame?.url && { gameLink: likelyGame?.url }),
 		title: likelyGame?.title ?? fallbackTitle,
 		author: discoursePostObject.username,
-		imgSrc: imgSrc,
+		...(imgSrc && { imgSrc }),
 	};
 }
 
