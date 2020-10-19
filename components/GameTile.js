@@ -4,7 +4,7 @@ const fallbackImgUrl =
 	'https://pxt.azureedge.net/api/47446-72417-42947-36047/thumb';
 
 export function GameTile({
-	threadLink,
+	topicLink,
 	gameLink,
 	title,
 	author,
@@ -19,11 +19,13 @@ export function GameTile({
 			gridGap="16px"
 		>
 			<Box>
-				<Image
-					maxWidth="160px"
-					maxHeight="120px"
-					src={imgSrc ?? fallbackImgUrl}
-				/>
+				<a href={gameLink}>
+					<Image
+						maxWidth="160px"
+						maxHeight="120px"
+						src={imgSrc ?? fallbackImgUrl}
+					/>
+				</a>
 			</Box>
 			<Box display="flex" flexDirection="column">
 				<Box>
@@ -31,7 +33,7 @@ export function GameTile({
 				</Box>
 				<Box>by {author}</Box>
 				<Box>
-					<a href={threadLink}>forum link</a>
+					<a href={topicLink}>forum</a>
 				</Box>
 			</Box>
 		</Box>

@@ -49,7 +49,7 @@ export async function getTopGamesForTimePeriod(scope) {
 
 		posts.push({
 			...post,
-			threadLink: makeTopicLink(topic.id),
+			topicLink: makeTopicLink(topic.id),
 			likeCount: topic.op_like_count,
 		});
 	}
