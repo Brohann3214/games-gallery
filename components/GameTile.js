@@ -13,13 +13,21 @@ export function GameTile({
 }) {
 	return (
 		<Stack spacing={1}>
-			<Box>
+			{/* TODO: improve sizing/placement of these images */}
+			<Box
+				width="100%"
+				height="0"
+				paddingBottom="calc(100% * (120 / 160))"
+				overflow="hidden"
+			>
 				<a href={gameLink}>
 					<Image
 						width="100%"
+						height="auto"
 						src={imgSrc ?? fallbackImgUrl}
 						css={`
-							object-fit: contain;
+							image-rendering: crisp-edges;
+							image-rendering: pixelated;
 						`}
 					/>
 				</a>
