@@ -15,8 +15,8 @@ export default function GamesGallery({ title, posts, generated }) {
 			</Heading>
 			<Box
 				display="grid"
-				gridGap="16px"
-				gridTemplateColumns="repeat(auto-fit, minmax(330px, 1fr))"
+				gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+				gridGap={3}
 			>
 				{posts.map(({ postId, ...props }) => (
 					<GameTile key={postId} {...props} />

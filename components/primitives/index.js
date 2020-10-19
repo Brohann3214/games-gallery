@@ -15,6 +15,17 @@ export const Box = styled.div(
 	compose(space, color, typography, layout, flexbox, grid, shadow)
 );
 
+export const Stack = styled(Box)`
+	& > * + * {
+		${system({
+			spacing: {
+				property: 'margin-top',
+				scale: 'space',
+			},
+		})}
+	}
+`;
+
 export const HorizontalStack = styled(Box)`
 	& > * + * {
 		${system({

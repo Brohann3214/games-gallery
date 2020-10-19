@@ -1,4 +1,4 @@
-import { Box, Image } from './primitives';
+import { Box, Stack, Image } from './primitives';
 
 const fallbackImgUrl =
 	'https://pxt.azureedge.net/api/47446-72417-42947-36047/thumb';
@@ -12,23 +12,26 @@ export function GameTile({
 	likeCount, // TODO
 }) {
 	return (
-		<Box
-			display="grid"
-			gridTemplateColumns="160px auto"
-			gridAutoRows="1fr"
-			gridGap="16px"
-		>
+		<Stack spacing={1}>
 			<Box>
 				<a href={gameLink}>
 					<Image
-						maxWidth="160px"
-						maxHeight="120px"
+						width="100%"
 						src={imgSrc ?? fallbackImgUrl}
+						css={`
+							object-fit: contain;
+						`}
 					/>
 				</a>
 			</Box>
-			<Box display="flex" flexDirection="column">
-				<Box>
+			<Box>
+				<Box
+					css={`
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						overflow: hidden;
+					`}
+				>
 					<a href={gameLink}>{title}</a>
 				</Box>
 				<Box>by {author}</Box>
@@ -36,6 +39,6 @@ export function GameTile({
 					<a href={topicLink}>forum</a>
 				</Box>
 			</Box>
-		</Box>
+		</Stack>
 	);
 }
