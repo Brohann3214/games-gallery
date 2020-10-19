@@ -4,10 +4,10 @@ DONE
 - detect https://makecode.com/_g3sMJHh8dYi5 links
 - detect github links
 - redirect `/` to `/latest` ?  https://nextjs.org/docs/api-reference/next.config.js/redirects
+- configure subdomain on jacobcarpenter.com
+- it seems like the forum tagging/categorization is not what it used to be; maybe update queries to not rely on tags?
 
 TODO
-- configure subdomain on jacobcarpenter.com
 - style game cards better
     - WIP fix issue with 2048 tile on all-time
-- it seems like the forum tagging/categorization is not what it used to be; maybe update queries to not rely on tags?
 - configure lint
