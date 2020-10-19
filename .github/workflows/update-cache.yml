@@ -21,4 +21,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Run script
+        env:
+          COSMOS_ENDPOINT: ${{ secrets.COSMOS_ENDPOINT }}
+          COSMOS_AUTH_TOKEN: ${{ secrets.COSMOS_AUTH_TOKEN }}
         run: yarn update-cache
