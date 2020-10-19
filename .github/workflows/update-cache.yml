@@ -1,0 +1,23 @@
+name: Update cache
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  update-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+        
+      - name: Install deps
+        run: yarn --frozen-lockfile
+
+      - name: Run script
+        run: yarn update-cache
