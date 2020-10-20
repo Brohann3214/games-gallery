@@ -33,13 +33,21 @@ export function createCacheClient() {
 		async bulkUpdatePosts(posts) {
 			const operations = posts.map((post) => ({
 				operationType: 'Upsert',
-				resourceBody: {
-					...post,
-					id: `${post.topicId}`, // prevent auto key generation; makes it easier to update in-place
-				},
+				resourceBody: makeCachePost(post),
 			}));
 
 			return container.items.bulk(operations);
 		},
+
+		async updateSinglePost(post) {
+			return container.items.upsert(makeCachePost(post));
+		},
+	};
+}
+
+function makeCachePost(post) {
+	return {
+		...post,
+		id: `${post.topicId}`, // prevent auto key generation; simplifies updating in-place
 	};
 }

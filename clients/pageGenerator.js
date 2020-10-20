@@ -44,6 +44,9 @@ export async function getTopGamesForTimePeriod(scope, order) {
 			const discoursePost = postsResponseBody.post_stream.posts[0];
 
 			post = buildGameDetails(discoursePost, topic.title);
+
+			// add newly fetched post to cache
+			await cacheClient.updateSinglePost(post);
 		}
 
 		if (!post.gameLink) {
