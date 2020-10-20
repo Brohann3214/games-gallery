@@ -29,6 +29,13 @@ export async function fetchTopTopicsWithGameTag(
 	);
 }
 
+export async function fetchLatestTopicsWithGameTag() {
+	return fetchWithRateLimit(
+		`${discourseBaseURL}/latest?order=created&tags%5B%5D=game`,
+		fetchOptions
+	);
+}
+
 export function makeTopicLink(topicId) {
 	return `${discourseBaseURL}/t/${encodeURIComponent(topicId)}`;
 }

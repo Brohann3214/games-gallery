@@ -4,9 +4,8 @@ import { Heading, Box } from '../components/primitives';
 
 const modeToFlag = {
 	newest: {
-		flag: 'monthly',
+		flag: 'latest',
 		title: 'Newest forum games',
-		options: { order: 'created' },
 	},
 	latest: {
 		flag: 'monthly',

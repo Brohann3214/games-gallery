@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import { createCacheClient } from './discourseCacheClient';
 import {
 	fetchTopTopicsWithGameTag,
+	fetchLatestTopicsWithGameTag,
 	fetchPostsForTopic,
 	makeTopicLink,
 } from './discourseClient';
@@ -11,7 +12,10 @@ const cacheClient = createCacheClient();
 
 export async function getTopGamesForTimePeriod(scope, order) {
 	// fetch top topics
-	const res = await fetchTopTopicsWithGameTag(scope, order);
+	const res = await (scope === 'latest'
+		? fetchLatestTopicsWithGameTag()
+		: fetchTopTopicsWithGameTag(scope, order));
+
 	const topTopics = await res.json();
 	const { topics } = topTopics.topic_list;
 
