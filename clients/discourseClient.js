@@ -17,11 +17,14 @@ export async function fetchPostsForTopic(topicId) {
 }
 
 // flag: one of [`all`, `yearly`, `quarterly`, `monthly`, `weekly`, `daily`]
-export async function fetchTopTopicsWithGameTag(flag) {
+export async function fetchTopTopicsWithGameTag(
+	flag,
+	{ order = 'op_likes' } = {}
+) {
 	return fetchWithRateLimit(
 		`${discourseBaseURL}/top/${encodeURIComponent(
 			flag
-		)}?order=op_likes&tags%5B%5D=game`,
+		)}?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
 		fetchOptions
 	);
 }

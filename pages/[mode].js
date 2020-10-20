@@ -3,8 +3,19 @@ import { GameTile } from '../components/GameTile';
 import { Heading, Box } from '../components/primitives';
 
 const modeToFlag = {
-	latest: { flag: 'monthly', title: 'Top forum games from last 30 days' },
-	'all-time': { flag: 'all', title: 'All time top forum games' },
+	newest: {
+		flag: 'monthly',
+		title: 'Newest forum games',
+		options: { order: 'created' },
+	},
+	latest: {
+		flag: 'monthly',
+		title: 'Top forum games from last 30 days',
+	},
+	'all-time': {
+		flag: 'all',
+		title: 'All time top forum games',
+	},
 };
 
 export default function GamesGallery({ title, posts, generated }) {
@@ -35,8 +46,9 @@ export default function GamesGallery({ title, posts, generated }) {
 }
 
 export async function getStaticProps({ params }) {
-	const { flag, title } = modeToFlag[params.mode];
-	const posts = await getTopGamesForTimePeriod(flag);
+	const { mode } = params;
+	const { flag, options, title } = modeToFlag[mode];
+	const posts = await getTopGamesForTimePeriod(flag, options);
 	return {
 		props: {
 			title,
@@ -52,6 +64,7 @@ export async function getStaticPaths() {
 		paths: [
 			{ params: { mode: 'latest' } },
 			{ params: { mode: 'all-time' } },
+			{ params: { mode: 'newest' } },
 		],
 		fallback: false,
 	};

@@ -9,6 +9,7 @@ const theme = {
 
 		pageHeaderBackground: '#5c406c',
 		pageHeaderColor: '#ffffff',
+		pageHeaderSecondaryColor: '#d6c3e0',
 		headerLinkHover: '#e5cdc4',
 
 		subtleText: '#d4cfcb',
@@ -46,9 +47,19 @@ export default function App({ Component, pageProps }) {
 				bg="pageHeaderBackground"
 				color="pageHeaderColor"
 				justifyContent="flex-end"
+				css={`
+					white-space: nowrap;
+				`}
 			>
+				<Box color="pageHeaderSecondaryColor">top</Box>
 				<HeaderLink href="/latest">latest</HeaderLink>
 				<HeaderLink href="/all-time">all-time</HeaderLink>
+				<Box
+					width="2px"
+					alignSelf="stretch"
+					bg="pageHeaderSecondaryColor"
+				/>
+				<HeaderLink href="/newest">newest</HeaderLink>
 			</HorizontalStack>
 			<Box paddingX={4}>
 				<Component {...pageProps} />

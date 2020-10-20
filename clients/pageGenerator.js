@@ -9,9 +9,9 @@ import {
 
 const cacheClient = createCacheClient();
 
-export async function getTopGamesForTimePeriod(scope) {
+export async function getTopGamesForTimePeriod(scope, order) {
 	// fetch top topics
-	const res = await fetchTopTopicsWithGameTag(scope);
+	const res = await fetchTopTopicsWithGameTag(scope, order);
 	const topTopics = await res.json();
 	const { topics } = topTopics.topic_list;
 
@@ -50,7 +50,7 @@ export async function getTopGamesForTimePeriod(scope) {
 		posts.push({
 			...post,
 			topicLink: makeTopicLink(topic.id),
-			likeCount: topic.op_like_count,
+			...(topic.op_like_count && { likeCount: topic.op_like_count }),
 		});
 	}
 
