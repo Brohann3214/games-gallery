@@ -21,10 +21,9 @@ export async function fetchTopTopicsWithGameTag(
 	flag,
 	{ order = 'op_likes' } = {}
 ) {
+	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/top/${encodeURIComponent(
-			flag
-		)}?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
+		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
 		fetchOptions
 	);
 }
