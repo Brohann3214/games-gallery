@@ -108,7 +108,7 @@ function findGameLink(links) {
 	// git hub pages format
 	if (!likelyGame) {
 		likelyGame = links.find(({ url }) =>
-			url.match(/^https:\/\/[\w\-]+\.github.io\/[\w\-]+\/$/)
+			url.match(/^https:\/\/[\w-]+\.github.io\/[\w-]+\/$/)
 		);
 	}
 

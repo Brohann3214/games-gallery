@@ -6,8 +6,8 @@ DONE
 - redirect `/` to `/latest` ?  https://nextjs.org/docs/api-reference/next.config.js/redirects
 - configure subdomain on jacobcarpenter.com
 - it seems like the forum tagging/categorization is not what it used to be; maybe update queries to not rely on tags?
+- configure lint
 
 TODO
 - style game cards better
     - WIP fix issue with 2048 tile on all-time
-- configure lint

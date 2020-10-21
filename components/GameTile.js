@@ -3,14 +3,8 @@ import { Box, Stack, Image } from './primitives';
 const fallbackImgUrl =
 	'https://pxt.azureedge.net/api/47446-72417-42947-36047/thumb';
 
-export function GameTile({
-	topicLink,
-	gameLink,
-	title,
-	author,
-	imgSrc,
-	likeCount, // TODO
-}) {
+// TODO: likeCount?
+export function GameTile({ topicLink, gameLink, title, author, imgSrc }) {
 	return (
 		<Stack spacing={1}>
 			{/* TODO: improve sizing/placement of these images */}
