@@ -11,9 +11,13 @@ DONE
 TODO
 - style game cards better
     - WIP fix issue with 2048 tile on all-time
+- rework latest/newest division; instead show the same set of games with two different sort orders?
 - add description
 - add link to forum
 - add link to github
 - add page titles
+- add author pages
+    - from discourse api or cache? probably cache...
+    - store created date in cache for sorting
 - indicate current page in nav?
 - CI ? GH Actions ?
