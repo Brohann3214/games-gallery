@@ -11,3 +11,9 @@ DONE
 TODO
 - style game cards better
     - WIP fix issue with 2048 tile on all-time
+- add description
+- add link to forum
+- add link to github
+- add page titles
+- indicate current page in nav?
+- CI ? GH Actions ?
