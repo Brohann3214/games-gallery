@@ -95,6 +95,7 @@ export async function getGamesForAuthor(authorId) {
 
 			return true;
 		})
+		.sort((a, z) => z.likeCount - a.likeCount)
 		.map((post) => ({ ...post, topicLink: makeTopicLink(post.topicId) }));
 }
 

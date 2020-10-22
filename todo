@@ -8,6 +8,7 @@ DONE
 - it seems like the forum tagging/categorization is not what it used to be; maybe update queries to not rely on tags?
 - configure lint
 - add author pages
+- sort author page results
 
 TODO
 - style game cards better
