@@ -18,11 +18,15 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
+		html {
+			background-color: ${({ theme }) => theme.colors.pageHeaderBackground}
+		}
+
 		body {
 			margin: 0;
 			padding: 0;
 			font-family: Helvetica, Arial, sans-serif;
-			background: ${({ theme }) => theme.colors.pageBackground}
+			background-color: ${({ theme }) => theme.colors.pageBackground}
 		}
 	
 		a {

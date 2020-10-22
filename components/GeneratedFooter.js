@@ -5,6 +5,7 @@ export function GeneratedFooter({ generated }) {
 		<Box
 			marginTop={5}
 			marginBottom={4}
+			paddingBottom={2}
 			textAlign="right"
 			color="subtleText"
 		>
