@@ -78,12 +78,18 @@ export function buildGameDetails(discoursePostObject, fallbackTitle) {
 	const $ = cheerio.load(discoursePostObject.cooked);
 	const imgSrc = $('.onebox .onebox-body .aspect-image img').attr('src');
 
+	const likeActions = discoursePostObject.actions_summary?.find(
+		({ id }) => id === 2
+	);
+
 	return {
 		topicId: discoursePostObject.topic_id,
 		postId: discoursePostObject.id,
 		...(likelyGame?.url && { gameLink: likelyGame?.url }),
 		title: likelyGame?.title ?? fallbackTitle,
 		author: discoursePostObject.username,
+		authorId: discoursePostObject.user_id,
+		likeCount: likeActions?.count ?? 0,
 		...(imgSrc && { imgSrc }),
 	};
 }
