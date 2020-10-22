@@ -1,21 +1,7 @@
-import { getTopGamesForTimePeriod } from '../clients/pageGenerator';
-import { GameTile } from '../components/GameTile';
+import { getGamesForRange } from '../clients/pageGenerator';
+import { GamesGrid } from '../components/GamesGrid';
+import { GeneratedFooter } from '../components/GeneratedFooter';
 import { Heading, Box } from '../components/primitives';
-
-const modeToFlag = {
-	newest: {
-		flag: 'latest',
-		title: 'Newest forum games',
-	},
-	latest: {
-		flag: 'monthly',
-		title: 'Top forum games from last 30 days',
-	},
-	'all-time': {
-		flag: 'all',
-		title: 'All time top forum games',
-	},
-};
 
 export default function GamesGallery({ title, posts, generated }) {
 	return (
@@ -23,34 +9,23 @@ export default function GamesGallery({ title, posts, generated }) {
 			<Heading marginY={4} fontSize={4}>
 				{title}
 			</Heading>
-			<Box
-				display="grid"
-				gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
-				gridGap={3}
-			>
-				{posts.map(({ postId, ...props }) => (
-					<GameTile key={postId} {...props} />
-				))}
-			</Box>
-			<Box
-				marginTop={5}
-				marginBottom={4}
-				textAlign="right"
-				color="subtleText"
-			>
-				Generated {generated}
-			</Box>
+			<GamesGrid posts={posts} />
+			<GeneratedFooter generated={generated} />
 		</Box>
 	);
 }
 
+const modeToTitle = {
+	latest: 'Most recently posted forum games',
+	'all-time': 'Most ❤️’d forum games',
+};
+
 export async function getStaticProps({ params }) {
 	const { mode } = params;
-	const { flag, options, title } = modeToFlag[mode];
-	const posts = await getTopGamesForTimePeriod(flag, options);
+	const posts = await getGamesForRange(mode);
 	return {
 		props: {
-			title,
+			title: modeToTitle[mode],
 			posts,
 			generated: new Date().toISOString(),
 		},
@@ -61,9 +36,8 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
 	return {
 		paths: [
-			{ params: { mode: 'latest' } },
-			{ params: { mode: 'all-time' } },
-			{ params: { mode: 'newest' } },
+			{ params: { mode: 'latest' } }, // default sort: recent
+			{ params: { mode: 'all-time' } }, // default sort: rating
 		],
 		fallback: false,
 	};

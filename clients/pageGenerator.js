@@ -10,14 +10,30 @@ import {
 
 const cacheClient = createCacheClient();
 
-export async function getTopGamesForTimePeriod(scope, order) {
-	// fetch top topics
-	const res = await (scope === 'latest'
-		? fetchLatestTopicsWithGameTag()
-		: fetchTopTopicsWithGameTag(scope, order));
+const rangeToFetchMethod = {
+	latest: fetchLatestTopicsWithGameTag,
+	'all-time': (order) => fetchTopTopicsWithGameTag('all', order),
+};
 
-	const topTopics = await res.json();
-	const { topics } = topTopics.topic_list;
+const defaultSortForRange = {
+	latest: 'recent',
+	'all-time': 'rating',
+};
+
+const orderToDiscourseOrder = {
+	recent: 'created',
+	rating: 'op_likes',
+};
+
+// TODO: memoize results during page generation to cut back on api calls?
+export async function getGamesForRange(
+	range,
+	order = defaultSortForRange[range]
+) {
+	const res = await rangeToFetchMethod[range](orderToDiscourseOrder[order]);
+
+	const resBody = await res.json();
+	const { topics } = resBody.topic_list;
 
 	// fetch corresponding posts
 	const postsForTopics = await cacheClient.getPostsForTopics(

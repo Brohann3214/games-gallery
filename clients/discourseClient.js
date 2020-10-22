@@ -16,11 +16,9 @@ export async function fetchPostsForTopic(topicId) {
 	return fetchWithRateLimit(`${makeTopicLink(topicId)}/posts`, fetchOptions);
 }
 
-// flag: one of [`all`, `yearly`, `quarterly`, `monthly`, `weekly`, `daily`]
-export async function fetchTopTopicsWithGameTag(
-	flag,
-	{ order = 'op_likes' } = {}
-) {
+// flag: one of ["all", "yearly", "quarterly", "monthly", "weekly", "daily"]
+// order: one of ["default", "created", "activity", "views", "posts", "category", "likes", "op_likes", "posters"]
+export async function fetchTopTopicsWithGameTag(flag, order) {
 	// prettier-ignore
 	return fetchWithRateLimit(
 		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
@@ -28,9 +26,11 @@ export async function fetchTopTopicsWithGameTag(
 	);
 }
 
-export async function fetchLatestTopicsWithGameTag() {
+// order: one of ["default", "created", "activity", "views", "posts", "category", "likes", "op_likes", "posters"]
+export async function fetchLatestTopicsWithGameTag(order) {
+	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/latest?order=created&tags%5B%5D=game`,
+		`${discourseBaseURL}/latest?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
 		fetchOptions
 	);
 }

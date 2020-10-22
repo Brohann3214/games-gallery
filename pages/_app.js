@@ -52,14 +52,13 @@ export default function App({ Component, pageProps }) {
 				`}
 			>
 				<Box color="pageHeaderSecondaryColor">top</Box>
-				<HeaderLink href="/latest">latest</HeaderLink>
 				<HeaderLink href="/all-time">all-time</HeaderLink>
 				<Box
 					width="2px"
 					alignSelf="stretch"
 					bg="pageHeaderSecondaryColor"
 				/>
-				<HeaderLink href="/newest">newest</HeaderLink>
+				<HeaderLink href="/latest">latest</HeaderLink>
 			</HorizontalStack>
 			<Box paddingX={4}>
 				<Component {...pageProps} />

@@ -7,6 +7,7 @@ DONE
 - configure subdomain on jacobcarpenter.com
 - it seems like the forum tagging/categorization is not what it used to be; maybe update queries to not rely on tags?
 - configure lint
+- add author pages
 
 TODO
 - style game cards better
@@ -16,16 +17,11 @@ TODO
 - add link to forum
 - add link to github
 - add page titles
-- add author pages
-    - from discourse api or cache? probably cache...
-    - ~~store created date in cache for sorting~~
-    - ~~store cached like count for sorting (actions_summary.find(x => x.id === 2).count)~~
-    - ~~store user_id for querying~~
 - indicate current page in nav?
 - fixed header?
 - CI ? GH Actions ?
 - figure out how external contributors can run; cosmos creds are secret
-
+- add typing info for certain modules? (ex. discourseClient)
 
 
 new page heirarchy

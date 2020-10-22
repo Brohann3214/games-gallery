@@ -1,7 +1,8 @@
 import Error from 'next/error';
 import { useRouter } from 'next/router';
 import { getGamesForAuthor } from '../../clients/pageGenerator';
-import { GameTile } from '../../components/GameTile';
+import { GamesGrid } from '../../components/GamesGrid';
+import { GeneratedFooter } from '../../components/GeneratedFooter';
 import { Heading, Box } from '../../components/primitives';
 
 export default function GamesGallery({ title, posts, generated }) {
@@ -20,23 +21,8 @@ export default function GamesGallery({ title, posts, generated }) {
 			<Heading marginY={4} fontSize={4}>
 				{title}
 			</Heading>
-			<Box
-				display="grid"
-				gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
-				gridGap={3}
-			>
-				{posts.map(({ postId, ...props }) => (
-					<GameTile key={postId} {...props} />
-				))}
-			</Box>
-			<Box
-				marginTop={5}
-				marginBottom={4}
-				textAlign="right"
-				color="subtleText"
-			>
-				Generated {generated}
-			</Box>
+			<GamesGrid posts={posts} />
+			<GeneratedFooter generated={generated} />
 		</Box>
 	);
 }
