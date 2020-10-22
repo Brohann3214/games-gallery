@@ -85,6 +85,7 @@ export function buildGameDetails(discoursePostObject, fallbackTitle) {
 	return {
 		topicId: discoursePostObject.topic_id,
 		postId: discoursePostObject.id,
+		created: discoursePostObject.created_at,
 		...(likelyGame?.url && { gameLink: likelyGame?.url }),
 		title: likelyGame?.title ?? fallbackTitle,
 		author: discoursePostObject.username,
