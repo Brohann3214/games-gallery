@@ -22,6 +22,7 @@ TODO
     - ~~store cached like count for sorting (actions_summary.find(x => x.id === 2).count)~~
     - ~~store user_id for querying~~
 - indicate current page in nav?
+- fixed header?
 - CI ? GH Actions ?
 - figure out how external contributors can run; cosmos creds are secret
 

@@ -1,10 +1,18 @@
+import Link from 'next/link';
 import { Box, Stack, Image } from './primitives';
 
 const fallbackImgUrl =
 	'https://pxt.azureedge.net/api/47446-72417-42947-36047/thumb';
 
 // TODO: likeCount?
-export function GameTile({ topicLink, gameLink, title, author, imgSrc }) {
+export function GameTile({
+	topicLink,
+	gameLink,
+	title,
+	author,
+	authorId,
+	imgSrc,
+}) {
 	return (
 		<Stack spacing={1}>
 			{/* TODO: improve sizing/placement of these images */}
@@ -36,7 +44,12 @@ export function GameTile({ topicLink, gameLink, title, author, imgSrc }) {
 				>
 					<a href={gameLink}>{title}</a>
 				</Box>
-				<Box>by {author}</Box>
+				<Box>
+					by{' '}
+					<Link href={`/author/${encodeURIComponent(authorId)}`}>
+						<a>{author}</a>
+					</Link>
+				</Box>
 				<Box>
 					<a href={topicLink}>forum</a>
 				</Box>

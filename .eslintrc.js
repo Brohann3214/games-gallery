@@ -26,6 +26,10 @@ module.exports = {
 	},
 	rules: {
 		'no-unused-vars': ['error', { ignoreRestSiblings: true }],
+
+		// https://github.com/vercel/next.js/issues/5533
+		'jsx-a11y/anchor-is-valid': 'off',
+
 		'react/prop-types': ['error', { skipUndeclared: true }],
 		'react/react-in-jsx-scope': 'off',
 	},

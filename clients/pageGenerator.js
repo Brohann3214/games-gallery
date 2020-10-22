@@ -57,11 +57,29 @@ export async function getTopGamesForTimePeriod(scope, order) {
 		posts.push({
 			...post,
 			topicLink: makeTopicLink(topic.id),
-			...(topic.op_like_count && { likeCount: topic.op_like_count }),
+			...(topic.op_like_count && { likeCount: topic.op_like_count }), // TODO: fallback to cached like count for queries that don't return it?
 		});
 	}
 
 	return posts;
+}
+
+export async function getGamesForAuthor(authorId) {
+	// fetch corresponding posts
+	const postsForAuthor = await cacheClient.getPostsForAuthor(authorId);
+
+	return postsForAuthor
+		.filter((post) => {
+			if (!post.gameLink) {
+				console.warn(
+					`No game link for topic ${makeTopicLink(post.topicId)}`
+				);
+				return false;
+			}
+
+			return true;
+		})
+		.map((post) => ({ ...post, topicLink: makeTopicLink(post.topicId) }));
 }
 
 export function buildGameDetails(discoursePostObject, fallbackTitle) {

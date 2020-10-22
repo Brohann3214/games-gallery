@@ -8,25 +8,33 @@ export function createCacheClient() {
 	const database = client.database('forum-games');
 	const container = database.container('games');
 
+	async function executeCosmosQuery(queryText, parameters) {
+		const { resources: cachedPosts } = await container.items
+			.query({
+				query: queryText,
+				parameters: Object.entries(parameters).map(([name, value]) => ({
+					name,
+					value,
+				})),
+			})
+			.fetchAll();
+
+		return cachedPosts.map(stripCosmosProperties);
+	}
+
 	return {
 		// get posts from cache (Discourse API doesn't support bulk fetching posts across topics 🙄)
 		async getPostsForTopics(topicIds) {
-			const { resources: cachedPosts } = await container.items
-				.query({
-					query:
-						'SELECT * from c WHERE ARRAY_CONTAINS(@topicIds, c.topicId)',
-					parameters: [
-						{
-							name: '@topicIds',
-							value: topicIds,
-						},
-					],
-				})
-				.fetchAll();
+			return executeCosmosQuery(
+				'SELECT * FROM c WHERE ARRAY_CONTAINS(@topicIds, c.topicId)',
+				{ '@topicIds': topicIds }
+			);
+		},
 
-			return cachedPosts.map(
-				// strip extra Cosmos properties
-				({ _rid, _self, _etag, _attachements, _ts, ...post }) => post
+		async getPostsForAuthor(authorId) {
+			return executeCosmosQuery(
+				'SELECT * FROM c WHERE c.authorId = @authorId',
+				{ '@authorId': authorId }
 			);
 		},
 
@@ -50,4 +58,15 @@ function makeCachePost(post) {
 		...post,
 		id: `${post.topicId}`, // prevent auto key generation; simplifies updating in-place
 	};
+}
+
+function stripCosmosProperties({
+	_rid,
+	_self,
+	_etag,
+	_attachements,
+	_ts,
+	...rest
+}) {
+	return rest;
 }
