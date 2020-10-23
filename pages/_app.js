@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { Box, HorizontalStack, Text } from '../components/primitives';
 import { HeaderLink } from '../components/HeaderLink';
@@ -59,12 +60,14 @@ export default function App({ Component, pageProps }) {
 					`}
 				>
 					<Box>
-						<HeaderLink href="/">
-							<HomeIcon />
-							<Text display={['none', 'inline']}>
-								&ensp;games gallery
-							</Text>
-						</HeaderLink>
+						<Link href="/" passHref>
+							<HeaderLink>
+								<HomeIcon />
+								<Text display={['none', 'inline']}>
+									&ensp;games gallery
+								</Text>
+							</HeaderLink>
+						</Link>
 					</Box>
 					<HorizontalStack
 						as="header"
