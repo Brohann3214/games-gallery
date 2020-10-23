@@ -42,30 +42,31 @@ export default function App({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<HorizontalStack
-				as="header"
-				paddingX={4}
-				paddingY={3}
-				spacing={3}
-				fontSize={3}
-				bg="pageHeaderBackground"
-				color="pageHeaderColor"
-				justifyContent="flex-end"
-				css={`
-					white-space: nowrap;
-				`}
-			>
-				<Box color="pageHeaderSecondaryColor">top</Box>
-				<HeaderLink href="/all-time">all-time</HeaderLink>
-				<Box
-					width="2px"
-					alignSelf="stretch"
-					bg="pageHeaderSecondaryColor"
-				/>
-				<HeaderLink href="/latest">latest</HeaderLink>
-			</HorizontalStack>
-			<Box paddingX={4}>
-				<Component {...pageProps} />
+			<Box fontSize={3}>
+				<HorizontalStack
+					as="header"
+					paddingX={4}
+					paddingY={3}
+					spacing={3}
+					bg="pageHeaderBackground"
+					color="pageHeaderColor"
+					justifyContent="flex-end"
+					css={`
+						white-space: nowrap;
+					`}
+				>
+					<Box color="pageHeaderSecondaryColor">top</Box>
+					<HeaderLink href="/all-time">all-time</HeaderLink>
+					<Box
+						width="2px"
+						alignSelf="stretch"
+						bg="pageHeaderSecondaryColor"
+					/>
+					<HeaderLink href="/latest">latest</HeaderLink>
+				</HorizontalStack>
+				<Box paddingX={4}>
+					<Component {...pageProps} />
+				</Box>
 			</Box>
 		</ThemeProvider>
 	);

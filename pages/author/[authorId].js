@@ -9,7 +9,11 @@ export default function GamesGallery({ title, posts, generated }) {
 	const router = useRouter();
 
 	if (router.isFallback) {
-		return <Box>Loading...</Box>;
+		return (
+			<Box paddingY={6} textAlign="center">
+				Loading...
+			</Box>
+		);
 	}
 
 	if (!posts.length) {
@@ -18,9 +22,7 @@ export default function GamesGallery({ title, posts, generated }) {
 
 	return (
 		<Box>
-			<Heading marginY={4} fontSize={4}>
-				{title}
-			</Heading>
+			<Heading marginY={4}>{title}</Heading>
 			<GamesGrid posts={posts} />
 			<GeneratedFooter generated={generated} />
 		</Box>

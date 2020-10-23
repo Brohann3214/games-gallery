@@ -5,7 +5,7 @@ export function GamesGrid({ posts }) {
 	return (
 		<Box
 			display="grid"
-			gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+			gridTemplateColumns="repeat(auto-fill, minmax(280px, 1fr))"
 			gridGap={3}
 		>
 			{posts.map(({ postId, ...props }) => (

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
 	space,
 	color,
+	border,
 	typography,
 	layout,
 	flexbox,
@@ -12,7 +13,7 @@ import {
 } from 'styled-system';
 
 export const Box = styled.div(
-	compose(space, color, typography, layout, flexbox, grid, shadow)
+	compose(space, color, border, typography, layout, flexbox, grid, shadow)
 );
 
 export const Stack = styled(Box)`
@@ -45,3 +46,6 @@ export const Image = styled.img(compose(space, layout));
 export const Heading = styled.header(
 	compose(space, color, typography, layout, flexbox, grid, shadow)
 );
+Heading.defaultProps = {
+	fontSize: 4,
+};

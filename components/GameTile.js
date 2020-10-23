@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styled from 'styled-components';
 import { Box, Stack, Image } from './primitives';
 
 const fallbackImgUrl =
@@ -14,7 +15,19 @@ export function GameTile({
 	imgSrc,
 }) {
 	return (
-		<Stack spacing={1}>
+		<Stack
+			spacing={2}
+			padding={3}
+			css={`
+				border: solid 2px transparent;
+
+				&:hover {
+					background-color: white;
+					border-color: ${({ theme }) =>
+						theme.colors.pageHeaderSecondaryColor};
+				}
+			`}
+		>
 			{/* TODO: improve sizing/placement of these images */}
 			<Box
 				width="100%"
@@ -35,25 +48,27 @@ export function GameTile({
 				</a>
 			</Box>
 			<Box>
-				<Box
-					css={`
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						overflow: hidden;
-					`}
-				>
+				<TrimmedTextBox title={title}>
 					<a href={gameLink}>{title}</a>
-				</Box>
-				<Box>
-					by{' '}
-					<Link href={`/author/${encodeURIComponent(authorId)}`}>
-						<a>{author}</a>
-					</Link>
-				</Box>
-				<Box>
-					<a href={topicLink}>forum</a>
+				</TrimmedTextBox>
+				<Box fontSize={2} marginTop={1} display="flex">
+					<TrimmedTextBox flex="1 1">
+						by{' '}
+						<Link href={`/author/${encodeURIComponent(authorId)}`}>
+							<a>{author}</a>
+						</Link>
+					</TrimmedTextBox>
+					<Box marginLeft={1}>
+						<a href={topicLink}>forum</a>
+					</Box>
 				</Box>
 			</Box>
 		</Stack>
 	);
 }
+
+const TrimmedTextBox = styled(Box)`
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+`;
