@@ -78,13 +78,17 @@ export default function App({ Component, pageProps }) {
 							white-space: nowrap;
 						`}
 					>
-						<HeaderLink href="/latest">latest</HeaderLink>
+						<Link href="/latest" passHref>
+							<HeaderLink>latest</HeaderLink>
+						</Link>
 						<Box
 							width="2px"
 							alignSelf="stretch"
 							bg="pageHeaderSecondaryColor"
 						/>
-						<HeaderLink href="/all-time">all-time</HeaderLink>
+						<Link href="/all-time" passHref>
+							<HeaderLink>all-time</HeaderLink>
+						</Link>
 					</HorizontalStack>
 				</Box>
 				<Box paddingX={3}>
