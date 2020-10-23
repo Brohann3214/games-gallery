@@ -10,7 +10,7 @@ export default function Home() {
 					👋
 				</span>{' '}
 				Welcome to an unofficial gallery view for the{' '}
-				<a href="https://forums.makecode.com/">MakeCode forums</a>!
+				<a href="https://forum.makecode.com/">MakeCode forums</a>!
 			</p>
 			<p>
 				<strong>
