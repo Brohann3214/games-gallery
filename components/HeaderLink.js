@@ -1,13 +1,8 @@
-import Link from 'next/link';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 
 export function HeaderLink({ href, children }) {
-	return (
-		<Link href={href} passHref>
-			<HeaderLinkAnchor>{children}</HeaderLinkAnchor>
-		</Link>
-	);
+	return <HeaderLinkAnchor href={href}>{children}</HeaderLinkAnchor>;
 }
 
 const HeaderLinkAnchor = styled.a(
