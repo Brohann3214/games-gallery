@@ -1,11 +1,15 @@
+import Head from 'next/head';
 import { getGamesForRange } from '../clients/pageGenerator';
 import { GamesGrid } from '../components/GamesGrid';
 import { GeneratedFooter } from '../components/GeneratedFooter';
 import { Heading, Box } from '../components/primitives';
 
-export default function GamesGallery({ title, posts, generated }) {
+export default function GamesGallery({ title, pageTitle, posts, generated }) {
 	return (
 		<Box>
+			<Head>
+				<title>{pageTitle}: games gallery</title>
+			</Head>
 			<Heading margin={3} marginTop={4}>
 				{title}
 			</Heading>
@@ -26,6 +30,7 @@ export async function getStaticProps({ params }) {
 	return {
 		props: {
 			title: modeToTitle[mode],
+			pageTitle: mode,
 			posts,
 			generated: new Date().toISOString(),
 		},

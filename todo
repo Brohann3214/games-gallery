@@ -9,18 +9,18 @@ DONE
 - configure lint
 - add author pages
 - sort author page results
+- add link to "home"
+- add link to forum
+- add description
+- add page titles
 
 TODO
 - style game cards better
     - WIP fix issue with 2048 tile on all-time
-- rework latest/newest division; instead show the same set of games with two different sort orders?
-- add link to "home"
-- add description
-- add link to forum
 - add link to github
-- add page titles
 - indicate current page in nav?
 - fixed header?
+- rework latest/newest division; instead show the same set of games with two different sort orders?
 - CI ? GH Actions ?
 - figure out how external contributors can run; cosmos creds are secret
 - add typing info for certain modules? (ex. discourseClient)

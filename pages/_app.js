@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { Box, HorizontalStack, Text } from '../components/primitives';
 import { HeaderLink } from '../components/HeaderLink';
@@ -41,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
 export default function App({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
+			<Head>
+				<title>games gallery</title>
+			</Head>
+
 			<GlobalStyle />
 			<Box marginBottom={4} fontSize={3}>
 				<Box
