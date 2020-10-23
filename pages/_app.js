@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import css from '@styled-system/css';
 import { Box, HorizontalStack, Text } from '../components/primitives';
-import { HeaderLink } from '../components/HeaderLink';
 
 const theme = {
 	space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
@@ -78,17 +78,13 @@ export default function App({ Component, pageProps }) {
 							white-space: nowrap;
 						`}
 					>
-						<Link href="/latest" passHref>
-							<HeaderLink>latest</HeaderLink>
-						</Link>
+						<HeaderLink href="/latest">latest</HeaderLink>
 						<Box
 							width="2px"
 							alignSelf="stretch"
 							bg="pageHeaderSecondaryColor"
 						/>
-						<Link href="/all-time" passHref>
-							<HeaderLink>all-time</HeaderLink>
-						</Link>
+						<HeaderLink href="/all-time">all-time</HeaderLink>
 					</HorizontalStack>
 				</Box>
 				<Box paddingX={3}>
@@ -115,3 +111,15 @@ function HomeIcon() {
 		</svg>
 	);
 }
+
+const HeaderLink = styled.a(
+	css({
+		textDecoration: 'none',
+		color: 'pageHeaderColor',
+
+		'&:hover': {
+			textDecoration: 'none',
+			color: 'headerLinkHover',
+		},
+	})
+);

@@ -31,9 +31,7 @@ export default function Home() {
 			</p>
 			<dl>
 				<PageHeading>
-					<Link href="/latest">
-						<a>Latest</a>
-					</Link>
+					<a href="/latest">Latest</a>
 				</PageHeading>
 				<dd>
 					a view of the{' '}
@@ -44,9 +42,7 @@ export default function Home() {
 				</dd>
 
 				<PageHeading>
-					<Link href="/all-time">
-						<a>All-time</a>
-					</Link>
+					<a href="/all-time">All-time</a>
 				</PageHeading>
 				<dd>
 					a view of the{' '}
@@ -57,9 +53,7 @@ export default function Home() {
 				</dd>
 
 				<PageHeading>
-					<Link href="/author/527">
-						<a>Author</a>
-					</Link>
+					<a href="/author/527">Author</a>
 				</PageHeading>
 				<dd>
 					a view of the{' '}

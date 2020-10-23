@@ -54,9 +54,9 @@ export function GameTile({
 				<Box fontSize={2} marginTop={1} display="flex">
 					<TrimmedTextBox flex="1 1">
 						by{' '}
-						<Link href={`/author/${encodeURIComponent(authorId)}`}>
-							<a>{author}</a>
-						</Link>
+						<a href={`/author/${encodeURIComponent(authorId)}`}>
+							{author}
+						</a>
 					</TrimmedTextBox>
 					<Box marginLeft={1}>
 						<a href={topicLink}>forum</a>
