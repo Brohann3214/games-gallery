@@ -6,6 +6,7 @@
 		"build": "next build",
 		"start": "next start",
 		"format": "prettier --write .",
+		"prelint": "prettier --check .",
 		"lint": "eslint .",
 		"update-cache": "node ./tools/update-cache"
 	},
@@ -38,6 +39,15 @@
 	"prettier": {
 		"singleQuote": true,
 		"useTabs": true,
-		"tabWidth": 4
+		"tabWidth": 4,
+		"overrides": [
+			{
+				"files": "*.yml",
+				"options": {
+					"useTabs": false,
+					"tabWidth": 2
+				}
+			}
+		]
 	}
 }
