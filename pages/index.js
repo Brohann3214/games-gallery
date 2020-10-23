@@ -3,7 +3,7 @@ import { Box } from '../components/primitives';
 
 export default function Home() {
 	return (
-		<Box padding={3} paddingBottom={6} maxWidth="800px">
+		<Box padding={3} paddingBottom={4} maxWidth="800px">
 			<p>
 				Hi!{' '}
 				<span role="img" aria-label="Waving hand">

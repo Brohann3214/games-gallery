@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import {
+	layout,
 	space,
 	color,
 	border,
 	typography,
-	layout,
 	flexbox,
 	grid,
 	shadow,
@@ -13,7 +13,7 @@ import {
 } from 'styled-system';
 
 export const Box = styled.div(
-	compose(space, color, border, typography, layout, flexbox, grid, shadow)
+	compose(layout, space, color, border, typography, flexbox, grid, shadow)
 );
 
 export const Stack = styled(Box)`
@@ -44,8 +44,10 @@ HorizontalStack.defaultProps = {
 export const Image = styled.img(compose(space, layout));
 
 export const Heading = styled.header(
-	compose(space, color, typography, layout, flexbox, grid, shadow)
+	compose(layout, space, color, typography, flexbox, grid, shadow)
 );
 Heading.defaultProps = {
 	fontSize: 4,
 };
+
+export const Text = styled.span(compose(layout, typography));

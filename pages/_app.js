@@ -1,5 +1,5 @@
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { Box, HorizontalStack } from '../components/primitives';
+import { Box, HorizontalStack, Text } from '../components/primitives';
 import { HeaderLink } from '../components/HeaderLink';
 
 const theme = {
@@ -42,18 +42,23 @@ export default function App({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<Box fontSize={3}>
+			<Box marginBottom={4} fontSize={3}>
 				<Box
 					display="flex"
 					paddingX={4}
 					paddingY={3}
 					bg="pageHeaderBackground"
 					color="pageHeaderColor"
+					css={`
+						white-space: nowrap;
+					`}
 				>
 					<Box>
 						<HeaderLink href="/">
 							<HomeIcon />
-							&emsp;games gallery
+							<Text display={['none', 'inline']}>
+								&ensp;games gallery
+							</Text>
 						</HeaderLink>
 					</Box>
 					<HorizontalStack
