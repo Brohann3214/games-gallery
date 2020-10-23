@@ -22,7 +22,9 @@ export default function GamesGallery({ title, posts, generated }) {
 
 	return (
 		<Box>
-			<Heading marginY={4}>{title}</Heading>
+			<Heading margin={3} marginTop={4}>
+				{title}
+			</Heading>
 			<GamesGrid posts={posts} />
 			<GeneratedFooter generated={generated} />
 		</Box>
