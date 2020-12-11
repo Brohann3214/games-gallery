@@ -45,6 +45,21 @@ export default function App({ Component, pageProps }) {
 		<ThemeProvider theme={theme}>
 			<Head>
 				<title>games gallery</title>
+				<script
+					async
+					src="https://www.googletagmanager.com/gtag/js?id=G-HBLN2JEFPX"
+				></script>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-HBLN2JEFPX');
+`,
+					}}
+				/>
 			</Head>
 
 			<GlobalStyle />
