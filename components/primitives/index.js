@@ -50,4 +50,4 @@ Heading.defaultProps = {
 	fontSize: 4,
 };
 
-export const Text = styled.span(compose(layout, typography));
+export const Text = styled.span(compose(layout, color, typography));

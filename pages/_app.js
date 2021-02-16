@@ -14,7 +14,9 @@ const theme = {
 		pageHeaderSecondaryColor: '#d6c3e0',
 		headerLinkHover: '#e5cdc4',
 
-		subtleText: '#d4cfcb',
+		subtleText: '#6b686e',
+
+		footerText: '#d4cfcb',
 	},
 	fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
 };

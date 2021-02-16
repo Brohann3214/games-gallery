@@ -8,7 +8,7 @@ export function GeneratedFooter({ generated }) {
 			marginBottom={4}
 			paddingBottom={2}
 			textAlign="right"
-			color="subtleText"
+			color="footerText"
 		>
 			Generated {generated}
 		</Box>
