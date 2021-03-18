@@ -12,8 +12,40 @@ export async function fetchArbitraryDiscourseResults(path) {
 	return fetchWithRateLimit(`${discourseBaseURL}/${path}`, fetchOptions);
 }
 
-export async function fetchPostsForTopic(topicId) {
-	return fetchWithRateLimit(`${makeTopicLink(topicId)}/posts`, fetchOptions);
+export async function fetchPostsForTopic(topicId, postIds) {
+	const params =
+		postIds &&
+		postIds.map((x) => `post_ids[]=${encodeURIComponent(x)}`).join('&');
+
+	return fetchWithRateLimit(
+		`${makeTopicLink(topicId)}${params ? `/posts?${params}` : ''}`,
+		fetchOptions
+	);
+}
+
+const discoursePageSize = 20;
+export async function fetchAllPostsForTopic(topicId) {
+	let postsResponse = await fetchPostsForTopic(topicId);
+	let postsResponseBody = await postsResponse.json();
+
+	const { posts, stream } = postsResponseBody.post_stream;
+
+	let page = 1;
+	const pageCount = Math.ceil(stream.length / discoursePageSize); // discourse page size
+
+	while (page < pageCount) {
+		const offset = page * discoursePageSize;
+		const postIds = stream.slice(offset, offset + discoursePageSize);
+
+		postsResponse = await fetchPostsForTopic(topicId, postIds);
+		postsResponseBody = await postsResponse.json();
+
+		posts.push(...postsResponseBody.post_stream.posts);
+
+		page++;
+	}
+
+	return posts;
 }
 
 // flag: one of ["all", "yearly", "quarterly", "monthly", "weekly", "daily"]
@@ -21,7 +53,7 @@ export async function fetchPostsForTopic(topicId) {
 export async function fetchTopTopicsWithGameTag(flag, order) {
 	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
+		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}&tags[]=game`,
 		fetchOptions
 	);
 }
@@ -30,7 +62,7 @@ export async function fetchTopTopicsWithGameTag(flag, order) {
 export async function fetchLatestTopicsWithGameTag(order) {
 	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/latest?order=${encodeURIComponent(order)}&tags%5B%5D=game`,
+		`${discourseBaseURL}/latest?order=${encodeURIComponent(order)}&tags[]=game`,
 		fetchOptions
 	);
 }
@@ -41,6 +73,8 @@ export function makeTopicLink(topicId) {
 
 // stay under Discourse's rate limit; intentionally sharing RateLimit instance
 async function fetchWithRateLimit(path, options) {
+	//console.log(`${options?.method ?? 'GET'} ${path}`);
+
 	await limit();
 	return fetch(path, options);
 }

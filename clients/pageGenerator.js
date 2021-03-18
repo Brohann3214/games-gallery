@@ -100,18 +100,16 @@ export async function getGamesForAuthor(authorId) {
 }
 
 export function buildGameDetails(discoursePostObject, fallbackTitle) {
-	const likelyGame = findGameLink(discoursePostObject.link_counts);
+	const likelyGame = findGameLink(discoursePostObject);
 	if (!likelyGame) {
 		console.warn(
-			`Couldn't find game link for post ${
-				discoursePostObject.id
-			} in thread ${makeTopicLink(discoursePostObject.topic_id)}`
+			`Couldn't find game link for ${makeTopicLink(
+				discoursePostObject.topic_id
+			)}/${discoursePostObject.post_number}`
 		);
 	}
 
-	// TODO: try harder to get imgSrcs?
-	const $ = cheerio.load(discoursePostObject.cooked);
-	const imgSrc = $('.onebox .onebox-body .aspect-image img').attr('src');
+	const imgSrc = findGameThumbnail(discoursePostObject);
 
 	const likeActions = discoursePostObject.actions_summary?.find(
 		({ id }) => id === 2
@@ -130,7 +128,9 @@ export function buildGameDetails(discoursePostObject, fallbackTitle) {
 	};
 }
 
-function findGameLink(links) {
+export function findGameLink(discoursePostObject) {
+	const links = discoursePostObject.link_counts;
+
 	if (!links?.length) {
 		return;
 	}
@@ -155,4 +155,12 @@ function findGameLink(links) {
 	}
 
 	return likelyGame;
+}
+
+export function findGameThumbnail(discoursePostObject) {
+	// TODO: try harder to get imgSrcs?
+	const $ = cheerio.load(discoursePostObject.cooked);
+	const imgSrc = $('.onebox .onebox-body .aspect-image img').attr('src');
+
+	return imgSrc;
 }

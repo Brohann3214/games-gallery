@@ -1,11 +1,17 @@
 import fetch from 'node-fetch';
 global.fetch = fetch; // ew; sorry...
 
+import { gameOverrides } from './gameOverrides';
 import {
 	fetchArbitraryDiscourseResults,
-	fetchPostsForTopic,
+	fetchAllPostsForTopic,
+	makeTopicLink,
 } from '../../clients/discourseClient';
-import { buildGameDetails } from '../../clients/pageGenerator';
+import {
+	buildGameDetails,
+	findGameLink,
+	findGameThumbnail,
+} from '../../clients/pageGenerator';
 import { createCacheClient } from '../../clients/discourseCacheClient';
 
 async function main() {
@@ -25,22 +31,97 @@ async function main() {
 		const { topics, more_topics_url } = topicsResponseBody.topic_list;
 
 		nextPage = more_topics_url;
+		if (nextPage && nextPage.startsWith('/')) {
+			nextPage = nextPage.substring(1);
+		}
+
 		pageIndex++;
 
 		console.log(`Got ${topics.length} topics; processing.`);
 
-		let posts = [];
+		let games = [];
 		for (const topic of topics) {
-			const postsResponse = await fetchPostsForTopic(topic.id);
+			const allPosts = await fetchAllPostsForTopic(topic.id);
 
-			const postsResponseBody = await postsResponse.json();
-			const post = postsResponseBody.post_stream.posts[0];
+			const [originalPost, ...replies] = allPosts;
 
-			const gameDetails = buildGameDetails(post, topic.title);
-			posts.push(gameDetails);
+			const gameOverride = gameOverrides[topic.id];
+			const [preferredGamePostId, expectedLastGamePostIdByAuthor] =
+				gameOverride ?? [];
+			let lastGamePostIdByAuthor;
+
+			let gameDetails = buildGameDetails(originalPost, topic.title);
+
+			let updateMessage;
+
+			for (const reply of replies) {
+				if (gameOverride) {
+					// track last game-looking post by user
+					if (
+						reply.user_id === originalPost.user_id &&
+						findGameLink(reply)
+					) {
+						lastGamePostIdByAuthor = reply.id;
+					}
+
+					// update game
+					if (reply.id === preferredGamePostId) {
+						updateMessage =
+							`Updated ${makeTopicLink(reply.topic_id)} ` +
+							`with manually curated ` +
+							`${makeTopicLink(reply.topic_id)}/${
+								reply.post_number
+							}`;
+						gameDetails = updateGameInfo(gameDetails, reply);
+					}
+				} else {
+					// try to update if reply is by op
+					if (reply.user_id === originalPost.user_id) {
+						const update = updateGameInfo(gameDetails, reply);
+						if (update) {
+							updateMessage =
+								`Updated ${makeTopicLink(reply.topic_id)} ` +
+								`with ${makeTopicLink(reply.topic_id)}/${
+									reply.post_number
+								}`;
+							gameDetails = update;
+						}
+					}
+				}
+			}
+
+			if (updateMessage) {
+				console.log(updateMessage);
+			}
+
+			if (lastGamePostIdByAuthor !== expectedLastGamePostIdByAuthor) {
+				console.error(
+					`ERROR: Unhandled game-like post by OP in topic with hardcoded post expectations: ` +
+						`topic ${topic.id}, post ${lastGamePostIdByAuthor}`
+				);
+
+				// set a non-zero exit code, so GitHub Actions notifies
+				process.exitCode = -1;
+			}
+
+			games.push(gameDetails);
 		}
 
-		await cacheClient.bulkUpdatePosts(posts);
+		await cacheClient.bulkUpdatePosts(games);
+	}
+}
+
+function updateGameInfo(gameDetails, post) {
+	const { title, gameLink, imgSrc, ...sharedGameDetails } = gameDetails;
+	const update = findGameLink(post);
+	if (update?.url) {
+		const thumbnailUpdate = findGameThumbnail(post);
+		return {
+			...sharedGameDetails,
+			gameLink: update.url,
+			title: update.title ?? title,
+			imgSrc: thumbnailUpdate,
+		};
 	}
 }
 
