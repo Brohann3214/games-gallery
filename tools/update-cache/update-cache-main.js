@@ -120,7 +120,7 @@ function updateGameInfo(gameDetails, post) {
 			...sharedGameDetails,
 			gameLink: update.url,
 			title: update.title ?? title,
-			imgSrc: thumbnailUpdate,
+			imgSrc: thumbnailUpdate ?? imgSrc,
 		};
 	}
 }
