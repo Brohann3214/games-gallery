@@ -53,7 +53,7 @@ export async function fetchAllPostsForTopic(topicId) {
 export async function fetchTopTopicsWithGameTag(flag, order) {
 	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}&tags[]=game`,
+		`${discourseBaseURL}/top/${encodeURIComponent(flag)}?order=${encodeURIComponent(order)}`,
 		fetchOptions
 	);
 }
@@ -62,7 +62,7 @@ export async function fetchTopTopicsWithGameTag(flag, order) {
 export async function fetchLatestTopicsWithGameTag(order) {
 	// prettier-ignore
 	return fetchWithRateLimit(
-		`${discourseBaseURL}/latest?order=${encodeURIComponent(order)}&tags[]=game`,
+		`${discourseBaseURL}/latest?order=${encodeURIComponent(order)}`,
 		fetchOptions
 	);
 }
